@@ -1,0 +1,124 @@
+---
+interface CategoryItem {
+  href: string;
+  img: string;
+  alt: string;
+  /** <br>等を含むため set:html で展開 */
+  name: string;
+}
+
+interface Props {
+  heading?: string;
+  icon?: string;
+  items?: CategoryItem[];
+}
+
+const {
+  heading = "買取品目一覧",
+  icon = "⬢",
+  items = [
+    {
+      href: "#jewelry-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-1-e1780403261334.png",
+      alt: "金・貴金属",
+      name: "金<br>貴金属",
+    },
+    {
+      href: "#jewelry-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-2.png",
+      alt: "宝石・ジュエリー",
+      name: "宝石<br>ジュエリー",
+    },
+    {
+      href: "#watch-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-3.png",
+      alt: "時計",
+      name: "時計",
+    },
+    {
+      href: "#bag-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/3ケリー.png",
+      alt: "バッグ",
+      name: "バッグ",
+    },
+    {
+      href: "#camera-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-5-e1780402038132.png",
+      alt: "カメラ",
+      name: "カメラ",
+    },
+    {
+      href: "#smartphone-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/1.スマホタブレットpng-e1780402933332.png",
+      alt: "スマホ・タブレット",
+      name: "スマホ<br>タブレット",
+    },
+    {
+      href: "#stamp-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/金券古銭.png",
+      alt: "古銭・切手・金券",
+      name: "古銭・切手<br>金券",
+    },
+    {
+      href: "#tool-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/工具-e1780403155896.png",
+      alt: "工具",
+      name: "工具",
+    },
+    {
+      href: "#machine-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-6.png",
+      alt: "農機具",
+      name: "農機具",
+    },
+    {
+      href: "#kimono-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/image-removebg-preview-7.png",
+      alt: "着物",
+      name: "着物",
+    },
+    {
+      href: "#kimono-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/買取品目リスト楽器.png",
+      alt: "楽器",
+      name: "楽器",
+    },
+    {
+      href: "#kimono-lp",
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/トレカホビー買取品目画像-e1781056221801.png",
+      alt: "トレカ・ホビー",
+      name: "トレカ・ホビー",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="w-full max-w-[500px] mx-auto py-[30px] bg-[#f9f9f9] font-['Noto_Sans_JP',sans-serif]">
+  <h2 class="flex items-center mt-0 mb-[20px] px-[15px] text-[22px] font-black text-[#333333]">
+    <span class="mr-[8px] text-[24px] leading-none text-[#275635]" aria-hidden="true">{icon}</span>
+    {heading}
+  </h2>
+
+  <div class="grid grid-cols-3 gap-[10px] px-[15px] max-[380px]:gap-[8px] max-[380px]:px-[10px]">
+    {items.map((item) => (
+      <a
+        href={item.href}
+        class="no-underline flex flex-col items-center justify-center bg-white border border-[#eaeaea] rounded-[4px] py-[15px] px-[5px] transition-all duration-200 hover:border-[#275635] hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] active:border-[#275635] active:shadow-[0_2px_8px_rgba(0,0,0,0.08)] max-[380px]:py-[12px] max-[380px]:px-[2px]"
+      >
+        <div class="flex items-center justify-center w-[60px] h-[60px] mb-[10px] max-[380px]:w-[50px] max-[380px]:h-[50px] max-[380px]:mb-[6px]">
+          <img
+            src={item.img}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+            class="max-w-full max-h-full object-contain"
+          />
+        </div>
+        <div
+          class="text-[11px] font-bold text-[#333333] text-center leading-[1.3] max-[380px]:text-[10px]"
+          set:html={item.name}
+        />
+      </a>
+    ))}
+  </div>
+</section>

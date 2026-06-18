@@ -1,0 +1,38 @@
+---
+// BagBuyList.astro
+// バッグの買取リスト（タグ一覧）
+
+const tags = [
+  "ポーチ",
+  "ビジネスバッグ",
+  "ボストンバッグ",
+  "ショルダーバッグ",
+  "クラッチバッグ",
+  "セカンドバッグ",
+  "リュック",
+  "ハンドバッグ",
+];
+---
+
+<section class="w-full bg-white py-6">
+  <div class="mx-auto w-full max-w-[500px] px-4 box-border">
+
+    <!-- セクション見出し（h2に昇格・SEO対応） -->
+    <h2 class="flex items-center gap-1.5 text-sm font-bold text-[#333333] mb-3">
+      <span class="inline-block w-1 self-stretch bg-[#275635] rounded-sm shrink-0" aria-hidden="true"></span>
+      バッグの買取リスト
+    </h2>
+
+    <!-- タグ一覧 -->
+    <ul class="flex flex-wrap gap-[5px] list-none p-0 m-0" role="list">
+      {tags.map((tag) => (
+        <li
+          class="bg-white text-[#275635] border border-[#c8e6c9] rounded px-2 py-0.5 text-[10px] leading-[1.2] whitespace-nowrap"
+        >
+          {tag}
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>

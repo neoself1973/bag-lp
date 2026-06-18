@@ -1,17 +1,122 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+// 共通パーツ（全商材共通・文言固定）
+import Header           from "../components/common/Header.astro";
+import CtaBlock         from "../components/common/CtaBlock.astro";
+import StickyFooter     from "../components/common/StickyFooter.astro";
+import SiteFooter       from "../components/common/SiteFooter.astro";
+import BackToTop        from "../components/common/BackToTop.astro";
+import BuyFlow          from "../components/common/BuyFlow.astro";
+import Features         from "../components/common/Features.astro";
+import HighPriceReasons from "../components/common/HighPriceReasons.astro";
+import WhyHighPrice     from "../components/common/WhyHighPrice.astro";
+import Promise          from "../components/common/Promise.astro";
+import IdRequired       from "../components/common/IdRequired.astro";
+import StoreInfo        from "../components/common/StoreInfo.astro";
+import Category         from "../components/common/Categories.astro";
+
+// バッグ専用パーツ
+import BagHero      from "../components/bag/BagHero.astro";
+import BagBanner    from "../components/bag/BagBanner.astro";
+import BagCampaign  from "../components/bag/BagCampaign.astro";
+import BagCondition from "../components/bag/BagCondition.astro";
+import BagBrands    from "../components/bag/BagBrands.astro";
+import BagRecords   from "../components/bag/BagRecords.astro";
+import BagTypeList  from "../components/bag/BagTypeList.astro";
+import BagBuyList   from "../components/bag/BagBuyList.astro";
+import BagSellTips  from "../components/bag/BagSellTips.astro";
+import BagCrossSell from "../components/bag/BagCrossSell.astro";
+import BagTestimonials from "../components/bag/BagTestimonials.astro";
+import BagFaq       from "../components/bag/BagFaq.astro";
+
+// WordPressメディアのベースURL
+const WP_BASE = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06";
+
+// ヒーロー背景（日本語ファイル名を encodeURI で安全な形に変換）
+const heroBg = encodeURI(
+  `${WP_BASE}/ファーストビュー背景てすと-1-1.png`
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <Header />
+
+  <main>
+    <!-- 1. ファーストビュー -->
+    <BagHero bgImage={heroBg} />
+
+    <!-- 2. アピールバナー -->
+    <BagBanner />
+
+    <!-- 15. 特徴 -->
+    <Features />
+
+     <!-- 11. 買取点数リスト -->
+    <BagBuyList />
+
+    <!-- 3. キャンペーン -->
+    <BagCampaign />
+
+     <!-- 8. CTA（電話・LINE） -->
+    <CtaBlock />
+
+    <!-- 6. 参考買取実績 -->
+    <BagRecords wpBase={WP_BASE} />
+
+    <!-- 4. こんな状態でも買取OK -->
+    <BagCondition />
+
+    <!-- 5. 買取強化中ブランド -->
+    <BagBrands />
+
+    
+
+    <!-- 12. 売り方のコツ・ポイント -->
+    <BagSellTips />
+
+    <!-- 7. バッグの種類・参考価格リスト -->
+    <BagTypeList />
+
+    <!-- 8. CTA（電話・LINE） -->
+    <CtaBlock />
+
+    <!-- 17. 他カテゴリへの導線 -->
+    <BagCrossSell />
+
+    
+
+    <!-- 10. なぜ高く買えるか -->
+    <WhyHighPrice />
+
+  
+
+ 
+
+    <!-- 13. 出張買取の流れ -->
+    <BuyFlow />
+
+    <!-- 18. 本人確認について -->
+    <IdRequired />
+
+    <!-- 9. 高価買取の理由 -->
+    <HighPriceReasons />
+
+     <!-- 14. まさ吉の約束 -->
+    <Promise />
+
+    <!-- 19. 店舗情報 -->
+    <StoreInfo />
+    
+    <!-- 17. お客様の声 -->
+    <BagTestimonials />
+    <Category />
+    <BagFaq />
+    <!-- 16. CTA（電話・LINE） -->
+    <CtaBlock />
+  </main>
+
+  <SiteFooter />
+  <StickyFooter />
+  <BackToTop />
+</BaseLayout>

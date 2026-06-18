@@ -1,0 +1,63 @@
+---
+interface ConditionItem {
+  label: string;
+}
+
+interface Props {
+  heading?: string;
+  headingHighlight?: string;
+  items?: ConditionItem[];
+  footerText?: string;
+}
+
+const {
+  heading          = "こんな状態でも",
+  headingHighlight = "買取OK!",
+  footerText       = "他社買取NG品や査定で安かったものでも、\nまさ吉にご相談ください。",
+  items = [
+    { label: "角スレ" },
+    { label: "破れ・糸のほつれ" },
+    { label: "サビ" },
+    { label: "日焼け・変色" },
+    { label: "シミ・インク汚れ" },
+    { label: "革がボロボロ" },
+    { label: "破損" },
+    { label: "古いモデル" },
+  ],
+} = Astro.props;
+
+const checkIcon = `<svg class="w-4 h-4 mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto px-[15px] py-[30px] bg-white"
+  aria-labelledby="bag-condition-heading"
+>
+  <h2
+    id="bag-condition-heading"
+    class="mt-0 mb-5 text-center text-[22px] font-black text-[#333] tracking-[1px]"
+  >
+    {heading}<span class="text-[#e6005c]">{headingHighlight}</span>
+  </h2>
+
+  <ul class="grid grid-cols-2 gap-2.5 mb-5 list-none p-0 m-0">
+    {items.map((item) => (
+      <li
+        class="flex items-center justify-center text-center bg-[#f0f4f2] text-[#275635] text-[14px] font-bold px-2.5 py-3 rounded-[6px] border border-[#e1ebe5]"
+      >
+        <Fragment set:html={checkIcon} />
+        {item.label}
+      </li>
+    ))}
+  </ul>
+
+  <p class="m-0 text-[13px] font-bold text-[#444] text-center leading-relaxed bg-[#f9f9f9] px-[15px] py-[15px] rounded-lg whitespace-pre-line">
+    {footerText}
+  </p>
+</section>
+
+<style>
+  @media (max-width: 380px) {
+    #bag-condition-heading { font-size: 19px; }
+  }
+</style>

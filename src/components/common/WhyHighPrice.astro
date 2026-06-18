@@ -1,0 +1,143 @@
+---
+// src/components/WhyHighPrice.astro
+// 「なぜ高価買取できるのか」理由リスト＋図解＋まとめ吹き出しのセクション
+
+interface Props {
+  /** ヘッダー文（HTML可。<span class="hl-y">で黄色強調） */
+  headerHtml?: string;
+  /** 理由リスト */
+  reasons?: string[];
+  /** 中間タイトル（HTML可。<span class="hl-u">で黄色マーカー下線） */
+  midTitleHtml?: string;
+  /** 図解・左の点線ボックス内の項目 */
+  diagramItems?: string[];
+  /** 図解・左下の小ボックス文言 */
+  smallBoxLabel?: string;
+  /** 図解・右の大ボックス文言 */
+  largeBoxLabel?: string;
+  /** まとめ吹き出し・上段 */
+  bubbleTop?: string;
+  /** まとめ吹き出し・下段（強調） */
+  bubbleBottom?: string;
+}
+
+const {
+  headerHtml = `まさ吉はなぜ<span class="hl-y">高価買取</span>ができるのか？`,
+  reasons = [
+    "直営による中間コストの徹底カット。その分を査定額に全額上乗せ",
+    "査定料、出張料、キャンセル料。お客様の負担は0円",
+    "店舗や在庫を持たない独自の仕組みによる高利益率",
+    "岡山・倉敷エリア限定！　地元密着のスピード対応",
+    "AI×プロの目利きによる正直まじめな鑑定",
+  ],
+  midTitleHtml = `これが、<span class="hl-u">高く買い取れる理由です！</span>`,
+  diagramItems = ["コストカット", "利益還元", "正直な査定"],
+  smallBoxLabel = "買取金額",
+  largeBoxLabel = "買取金額",
+  bubbleTop = "「コストカット・利益還元・正直な査定」で",
+  bubbleBottom = "徹底した顧客還元を実現！",
+} = Astro.props;
+---
+
+<section
+  class="mx-auto box-border w-full max-w-[500px] overflow-hidden bg-[#f0f4f2] [font-family:'Noto_Sans_JP',sans-serif]"
+>
+  <!-- ヘッダー -->
+  <div
+    class="bg-[#1a4024] px-2.5 py-4 text-center text-[22px] font-black leading-snug tracking-[0.05em] text-white max-[380px]:text-[19px]"
+    set:html={headerHtml}
+  />
+
+  <!-- ボディ -->
+  <div class="px-5 pb-[30px] pt-6">
+    <!-- 理由リスト -->
+    <ul class="m-0 mb-6 list-none p-0">
+      {
+        reasons.map((r) => (
+          <li class="relative mb-3 pl-[1.2em] text-[14px] font-medium leading-relaxed tracking-[0.02em] text-[#333333] before:absolute before:left-0 before:top-[0.1em] before:text-[10px] before:text-[#555555] before:content-['●']">
+            {r}
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- 中間タイトル -->
+    <div
+      class="why-mid mb-6 text-center text-[24px] font-black tracking-[0.05em] text-[#1a4024] max-[380px]:text-[20px]"
+      set:html={midTitleHtml}
+    />
+
+    <!-- 図解 -->
+    <div class="mb-5 flex items-center justify-between px-2.5">
+      <!-- 左：構成要素 -->
+      <div class="flex w-[42%] flex-col items-center">
+        <div class="box-border w-full border-2 border-dotted border-[#275635] bg-white px-1 py-2 text-center">
+          {
+            diagramItems.map((item, i) => (
+              <div
+                class:list={[
+                  "py-1 text-[11px] font-bold text-[#275635]",
+                  i < diagramItems.length - 1 && "border-b border-dotted border-[#275635]",
+                ]}
+              >
+                {item}
+              </div>
+            ))
+          }
+        </div>
+        <div class="my-1 text-[20px] font-black text-[#1a4024]">＋</div>
+        <div class="w-full bg-gradient-to-br from-[#3a7a4b] to-[#1a4024] py-3 text-center text-[14px] font-bold text-white shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
+          {smallBoxLabel}
+        </div>
+      </div>
+
+      <!-- 中央：矢印 -->
+      <div class="mt-[50px] flex items-center justify-center text-[40px] font-black leading-none text-[#e6005c] max-[380px]:text-[32px]">
+        ➡
+      </div>
+
+      <!-- 右：大きな買取金額 -->
+      <div class="relative w-[42%]">
+        <div class="flex h-[170px] w-full items-center justify-center bg-gradient-to-br from-[#3a7a4b] to-[#1a4024] text-[18px] font-bold text-white shadow-[2px_2px_8px_rgba(0,0,0,0.15)]">
+          {largeBoxLabel}
+        </div>
+      </div>
+    </div>
+
+    <!-- まとめ吹き出し -->
+    <div
+      class="relative z-10 mt-2.5 rounded-xl bg-white p-4 text-center shadow-[0_4px_12px_rgba(0,0,0,0.08)] before:absolute before:-top-4 before:right-1/4 before:border-x-[12px] before:border-b-[18px] before:border-t-0 before:border-solid before:border-x-transparent before:border-b-white before:content-['']"
+    >
+      <div class="mb-1.5 text-[14px] font-bold tracking-[0.02em] text-[#1a4024]">
+        {bubbleTop}
+      </div>
+      <div class="text-[22px] font-black tracking-[0.05em] text-[#e6005c] max-[380px]:text-[18px]">
+        {bubbleBottom}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* set:htmlで注入したヘッダー・中間タイトル内の強調装飾 */
+  .reason-header :global(.hl-y),
+  [set\:html] :global(.hl-y) {
+    color: #fff700;
+  }
+  /* 黄色マーカー下線（文字の後ろに敷く） */
+  .why-mid :global(.hl-u) {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+  }
+  .why-mid :global(.hl-u)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 8px;
+    background-color: #fff700;
+    z-index: -1;
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import "../styles/global.css";  //
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "バッグ買取なら「まじめな買取屋 まさ吉」｜出張料・査定料・キャンセル料無料",
+  description = "エルメス・シャネル・ルイヴィトン等のブランドバッグを高価買取。シミ・破損など他社NG品も買取可能。出張料・キャンセル料・査定料すべて無料。最大30%UPの開店記念キャンペーン実施中。",
+  ogImage = "http://xs361374.xsrv.jp/wp-content/uploads/bag/bag-ogp.png",
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const canonical = `${site}/bag`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "まじめな買取屋 まさ吉",
+  description,
+  url: canonical,
+  image: ogImage,
+  priceRange: "¥¥",
+  makesOffer: {
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: "ブランドバッグ買取",
+      serviceType: "出張買取",
+    },
+  },
+};
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- OGP -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- フォント先読み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    color: #333;
+    background: #fff;
+    line-height: 1.6;
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  }
+  img { max-width: 100%; height: auto; vertical-align: bottom; }
+</style>

@@ -1,0 +1,141 @@
+---
+interface RecordItem {
+  img: string;
+  brand: string;
+  name: string;
+  condition: string;
+  price: number;
+  alt?: string;
+}
+
+interface Props {
+  wpBase?: string;
+  heading?: string;
+  items?: RecordItem[];
+  note?: string;
+}
+
+const {
+  wpBase  = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06",
+  heading = "バッグの参考買取想定価格",
+  note    = "※上記は参考価格です。実際の金額は相場や状態により変動します。",
+  items = [
+    {
+      img: "買取リストバーキン.png",
+      brand: "HERMES（エルメス）",
+      name: "バーキン30／ボックスカーフ／バーミリオンレッド",
+      condition: "美品",
+      price: 1500000,
+    },
+    {
+      img: "1マトラッセ.png",
+      brand: "シャネル",
+      name: "マトラッセ ラムスキン チェーンショルダーバッグ GD金具",
+      condition: "状態：内側ベタつき・ギャランティなし",
+      price: 210000,
+    },
+    {
+      img: "3ケリー.png",
+      brand: "HERMES（エルメス）",
+      name: "ケリー25 セリエ ヴォータデラクト ブラック ゴールド金具",
+      condition: "ABランク",
+      price: 2200000,
+    },
+    {
+      img: "240_F_1554235321_vx9erUGpX2HNAKYwqk0EWxcT3LhsbCR1.jpg",
+      brand: "GUCCI（グッチ）",
+      name: "オフィディア ミディアムトップハンドル 2WAYバッグ",
+      condition: "状態：角擦れあり",
+      price: 80000,
+    },
+    {
+      img: "サフィアーノ.png",
+      brand: "PRADA（プラダ）",
+      name: "サフィアーノ レッド",
+      condition: "状態：角スレ・持ち手黒ずみあり",
+      price: 48000,
+    },
+    {
+      img: "5ネヴァーフル.png",
+      brand: "LOUIS VUITTON（ルイ・ヴィトン）",
+      name: "ネヴァーフルPM トートバッグ",
+      condition: "美品・箱付き",
+      price: 140000,
+    },
+    {
+      img: "6.シレーヌpng.png",
+      brand: "CELINE（セリーヌ）",
+      name: "ラゲージナノショッパー ドラムドカーフスキン 2way",
+      condition: "美品",
+      price: 150000,
+    },
+    {
+      img: "ディオールボストンバッグ.png",
+      brand: "Christian Dior（クリスチャン・ディオール）",
+      name: "トロッターボストンバッグ",
+      condition: "状態：使用感があり、多少のダメージがある商品",
+      price: 33000,
+    },
+  ],
+} = Astro.props;
+
+const resolveImg = (src: string) =>
+  /^https?:\/\//.test(src) ? src : `${wpBase}/${src}`;
+
+const yen = (n: number) => n.toLocaleString("ja-JP");
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto px-3 pt-2.5 pb-4"
+  aria-labelledby="bag-records-heading"
+>
+  <h2
+    id="bag-records-heading"
+    class="mb-4 text-center text-[clamp(20px,6vw,28px)] font-bold tracking-[0.06em] leading-snug text-[#333]"
+  >
+    {heading}
+    <span class="block mt-0.5 text-[0.5em] tracking-[0.3em] text-[#999]" aria-hidden="true">
+      ………
+    </span>
+  </h2>
+
+  <div class="grid grid-cols-2 gap-3">
+    {items.map((item) => (
+      <article class="flex flex-col bg-white border border-[#e0e0e0] rounded-lg overflow-hidden shadow-[0_2px_6px_rgba(0,0,0,0.05)]">
+        <div class="w-full aspect-[4/3] bg-[#f4f6f9] overflow-hidden">
+          <img
+            src={resolveImg(item.img)}
+            alt={item.alt ?? `${item.brand} ${item.name} 買取実績`}
+            width="300"
+            height="225"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover block"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2 flex-grow p-2.5">
+          <h3 class="m-0 text-[clamp(12px,3.4vw,13px)] font-bold text-[#333] leading-snug">
+            <span class="block">{item.brand}</span>
+            <span class="block font-bold">{item.name}</span>
+          </h3>
+
+          <p class="m-0 text-[clamp(9px,2.6vw,10px)] text-[#555] bg-[#f0f4f2] px-1.5 py-1 rounded leading-tight">
+            {item.condition}
+          </p>
+
+          <div class="mt-auto text-right">
+            <span class="block text-left text-[10px] text-[#666] -mb-0.5">
+              参考買取価格
+            </span>
+            <p class="m-0 text-[clamp(18px,5.4vw,22px)] font-black text-[#e6005c] leading-none">
+              {yen(item.price)}<span class="text-[0.64em] font-bold">円</span>
+            </p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="mt-2 text-[10px] text-[#888] text-right">{note}</p>
+</section>

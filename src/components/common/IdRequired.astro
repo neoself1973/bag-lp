@@ -1,0 +1,61 @@
+---
+// src/components/IdRequired.astro
+// 買取に必要な本人確認書類の案内（書類2列グリッド＋注意書き）
+
+interface Props {
+  /** ヘッダー見出し */
+  title?: string;
+  /** 導入テキスト */
+  intro?: string;
+  /** 必要書類リスト */
+  documents?: string[];
+  /** 注意書き（先頭の※はテキストに含めて渡す） */
+  notes?: string[];
+}
+
+const {
+  title = "お買取りに必要なご本人様確認書類",
+  intro = "まさ吉では、古物営業法に基づき、中古品をお売りいただくすべてのお客様に「お名前」「現住所」「生年月日」が確認できる公的な身分証明書のご提示をお願いしております。ご来店の際は、必ず以下のいずれかをご用意くださいませ。",
+  documents = ["運転免許証", "在留カード", "パスポート", "マイナンバーカード"],
+  notes = [
+    "※お持ちの身分証明書に記載の住所が現在お住まいの住所と異なる場合や、2020年2月4日以降に発行されたパスポートをご提示いただく場合は、現住所が確認できるご本人様名義の補足書類（公共料金の領収書など）が別途必要となります。",
+    "※18歳未満（高校生含む）のお客様からのお買取りは、法律によりお断りさせていただいております。",
+    "※法人名義でのお買取りをご希望の場合、ご来店者様の身分証明書に加え、「法人の登記事項証明書」または「印鑑登録証明書」が必要です。また、代表者様以外がご来店される場合は、法人からの委任状も併せてご持参ください。",
+  ],
+} = Astro.props;
+---
+
+<section
+  class="mx-auto box-border max-w-[500px] border border-[#cccccc] border-t-4 border-t-[#275635] bg-white text-[#333333] [font-family:'Noto_Sans_JP',sans-serif]"
+>
+  <!-- ヘッダー -->
+  <h2 class="m-0 bg-[#275635] p-3 text-center text-[16px] font-bold tracking-[0.05em] text-white">
+    {title}
+  </h2>
+
+  <!-- ボディ -->
+  <div class="px-4 py-5">
+    <!-- 導入文 -->
+    <p class="mb-5 mt-0 text-[12px] leading-relaxed text-[#444444]">{intro}</p>
+
+    <!-- 書類リスト（2列グリッド） -->
+    <div class="mb-5 grid grid-cols-2 gap-2.5">
+      {
+        documents.map((doc) => (
+          <div class="rounded border border-[#d8e5dd] bg-[#f0f5f2] px-1.5 py-3 text-center text-[13px] font-bold text-[#275635]">
+            {doc}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- 注意書き -->
+    <div class="text-[10.5px] leading-normal text-[#666666]">
+      {
+        notes.map((note) => (
+          <div class="mb-1.5 pl-[1.2em] -indent-[1.2em] last:mb-0">{note}</div>
+        ))
+      }
+    </div>
+  </div>
+</section>

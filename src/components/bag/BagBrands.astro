@@ -1,0 +1,95 @@
+---
+interface BrandItem {
+  /** WPメディアの絶対URL */
+  img: string;
+  /** ブランド名（alt兼用） */
+  name: string;
+}
+
+interface Props {
+  heading?: string;
+  items?: BrandItem[];
+}
+
+const {
+  heading = "買取強化中ブランド",
+  items = [
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/1エルメス_バーキンホワイト-removebg-preview.png",
+      name: "エルメス",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/シャネル-removebg-preview.png",
+      name: "シャネル",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/ヴィトン-removebg-preview.png",
+      name: "ルイ・ヴィトン",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/グッチ-removebg-preview.png",
+      name: "グッチ",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/5ディオール-removebg-preview.png",
+      name: "ディオール",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/6.セリーヌ_クロードpng-removebg-preview.png",
+      name: "セリーヌ",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/7プラダ-removebg-preview.png",
+      name: "プラダ",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/8フェンディー-removebg-preview.png",
+      name: "フェンディ",
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/9ロエベ-removebg-preview.png",
+      name: "ロエベ",
+    },
+  ],
+} = Astro.props;
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto px-[15px] py-[30px]"
+  aria-labelledby="bag-brands-heading"
+>
+  <h2
+    id="bag-brands-heading"
+    class="mt-0 mb-4 text-center text-[22px] font-black text-[#333] tracking-[1px]"
+  >
+    {heading}
+    <span class="block mt-0.5 text-[0.5em] tracking-[0.3em] text-[#999]" aria-hidden="true">
+      …….
+    </span>
+  </h2>
+
+  <ul class="grid grid-cols-3 gap-2 list-none p-0 m-0">
+    {items.map((item) => (
+      <li class="flex flex-col items-center justify-center bg-[#f4f4f4] rounded px-2 py-3">
+        <div class="w-full aspect-square flex items-center justify-center mb-2">
+          <img
+            src={item.img}
+            alt={item.name}
+            loading="lazy"
+            decoding="async"
+            class="max-w-[90%] max-h-[90%] object-contain"
+          />
+        </div>
+        <span class="text-[11px] font-bold text-[#333] text-center leading-tight">
+          {item.name}
+        </span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  @media (max-width: 380px) {
+    #bag-brands-heading { font-size: 19px; }
+  }
+</style>

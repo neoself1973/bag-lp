@@ -1,0 +1,79 @@
+---
+interface StoreItem {
+  name: string;
+  /** 表示用の電話番号（ハイフン付きでOK。tel:リンクは自動で数字抽出） */
+  tel: string;
+  /** Googleマップ埋め込みのsrc */
+  mapSrc: string;
+  /** iframeのtitle（未指定なら店舗名から自動生成） */
+  mapTitle?: string;
+}
+
+interface Props {
+  /** <br>等を含むため set:html で展開 */
+  headingHtml?: string;
+  stores?: StoreItem[];
+}
+
+const {
+  headingHtml = "岡山地域密着<br>「まじめな買取屋 まさ吉」",
+  stores = [
+    {
+      name: "〇〇店",
+      tel: "0120-000-000",
+      mapSrc:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105073.23812838392!2d133.84360340315266!3d34.65431718042502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3554060ab7b60e63%3A0x6b1fb3a2f8cb080e!2z5bKh5bGx55yM5bKh5bGx5biC!5e0!3m2!1sja!2sjp!4v1716900000000!5m2!1sja!2sjp",
+    },
+    {
+      name: "△△店",
+      tel: "0120-111-111",
+      mapSrc:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105151.72590165507!2d133.7029579624584!3d34.58286915104279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3554019a5843a579%3A0x3b0ceaf4b43b6777!2z5bKh5bGx55yM5YCJ5pWe5biC!5e0!3m2!1sja!2sjp!4v1716900000001!5m2!1sja!2sjp",
+    },
+    {
+      name: "□□店",
+      tel: "0120-222-222",
+      mapSrc:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105073.23812838392!2d133.84360340315266!3d34.65431718042502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3554060ab7b60e63%3A0x6b1fb3a2f8cb080e!2z5bKh5bGx55yM5bKh5bGx5biC!5e0!3m2!1sja!2sjp!4v1716900000000!5m2!1sja!2sjp",
+    },
+  ],
+} = Astro.props;
+
+const normalizeTel = (tel: string) => tel.replace(/[^0-9+]/g, "");
+---
+
+<section class="w-full max-w-[500px] mx-auto py-[30px] px-[10px] bg-white font-['Noto_Sans_JP',sans-serif]">
+  <h2
+    class="text-[24px] font-black text-[#275635] text-center mb-[30px] tracking-[0.05em] leading-[1.4] max-[380px]:text-[21px]"
+    set:html={headingHtml}
+  />
+
+  {stores.map((store) => (
+    <div class="bg-white border border-[#dcdcdc] rounded-[6px] overflow-hidden mb-[25px] last:mb-0 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+      <div class="py-[15px] px-[20px] border-b-[3px] border-[#275635] max-[380px]:py-[12px] max-[380px]:px-[15px]">
+        <div class="text-[18px] font-black text-[#333333] mb-[8px] max-[380px]:text-[16px]">
+          {store.name}
+        </div>
+        <div class="flex items-center text-[14px] font-bold text-[#555555]">
+          TEL:
+          <a
+            href={`tel:${normalizeTel(store.tel)}`}
+            class="ml-[8px] text-[22px] font-black text-[#e6005c] no-underline font-['Arial',sans-serif] max-[380px]:text-[19px]"
+          >
+            {store.tel}
+          </a>
+        </div>
+      </div>
+      <div class="relative w-full pt-[65%]">
+        <iframe
+          src={store.mapSrc}
+          title={store.mapTitle ?? `${store.name}の地図`}
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="absolute top-0 left-0 w-full h-full border-0"
+        ></iframe>
+      </div>
+    </div>
+  ))}
+</section>

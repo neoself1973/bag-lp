@@ -1,0 +1,84 @@
+---
+// BagSellTips.astro
+// 高く売るコツ セクション
+
+const bullets = [
+  "保証書、付属品等を残しておく",
+  "使用した形跡が少なく、状態が綺麗なもの",
+  "レアなモデル・人気モデル",
+  "相場が急上昇しているもの",
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "極力使用感のないよい状態にしておく",
+    desc: "多少の汚れや破損があってもブランドによっては高価買取が期待できます。ただ、汚れなど可能な限り落としておくと、査定額アップにつながります。常日頃から保管やお手入に気をつけて、できるだけ良い状態をキープするとよいでしょう。",
+  },
+  {
+    num: "02",
+    title: "付属品は捨てずにとっておく",
+    desc: "購入時の保障書、外箱や保存袋も捨てずに保管しておくのがおすすめです。付属品がそろっていると、査定額UPにつながります。なお、付属品がなくても買取は大歓迎です。",
+  },
+  {
+    num: "03",
+    title: "まとめ売りで査定額UP",
+    desc: "破損したバッグや旧モデルでも、まとめて査定に出すことで金額がUPする可能性があります。不要な品はまとめての売却がおすすめです。",
+  },
+];
+---
+
+<section class="w-full bg-[#f1efe8] py-10">
+  <div class="mx-auto w-full max-w-[500px] px-5 box-border text-[#333333]">
+
+    <!-- リード見出し -->
+    <h2 class="text-[22px] font-black text-center text-[#333333] mb-4 leading-tight">
+      バッグを売るなら<span class="text-[#e6005c] text-[1.2em]">「今」</span>！
+    </h2>
+
+    <p class="text-sm font-medium leading-relaxed text-center mb-9">
+      現在は円安でバッグが高く売れやすくなっています！<br />
+      では、高く売るにはどうしたらいいでしょうか？
+    </p>
+
+    <!-- 高く売るコツ 見出し -->
+    <h2 class="text-[22px] font-black text-center text-[#333333] mb-4 leading-tight">
+      高く売るコツ
+    </h2>
+
+    <!-- 箇条書きボックス -->
+    <div class="bg-white rounded px-5 py-6 mb-10 shadow-[0_4px_6px_rgba(0,0,0,0.03)]">
+      <ul class="space-y-3.5 list-none p-0 m-0">
+        {bullets.map((item) => (
+          <li class="text-sm font-bold text-[#4a4538] pl-5 relative leading-relaxed last:mb-0">
+            <span
+              class="absolute left-0 top-0 text-[10px] text-[#7b6630] leading-relaxed"
+              aria-hidden="true"
+            >●</span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- ステップ詳細 -->
+    <div>
+      {steps.map((step) => (
+        <div class="border-t-2 border-[#d4cdb8] py-5 last:pb-0">
+          <div class="flex items-baseline gap-3 mb-3">
+            <span class="text-[34px] font-black text-[#7b6630] leading-none font-[Arial,sans-serif]">
+              {step.num}
+            </span>
+            <h3 class="text-base font-bold text-[#333333] leading-snug">
+              {step.title}
+            </h3>
+          </div>
+          <p class="text-[13px] leading-relaxed text-[#555555] m-0">
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

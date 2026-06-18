@@ -1,0 +1,68 @@
+---
+// バッグLP専用 よくあるご質問セクション
+const faqs = [
+  {
+    q: "ストラップや付属品が欠品しているバッグでも買取できますか？",
+    a: "もちろんです！箱や保証書、ストラップなどがない「本体のみ」の状態でも、喜んで査定・お買取りさせていただきます。"
+  },
+  {
+    q: "ファスナーが壊れています。修理してから持ち込むべきですか？",
+    a: "いいえ、ぜひそのままお持ちください。正規店以外で修理すると買取不可になるケースがあるほか、修理代をかけない方が結果的にお客様の手元に残る金額が多くなることがほとんどです。"
+  },
+  {
+    q: "内側の生地がベタベタになったり、破れたりしていても売れますか？",
+    a: "はい、問題ございません。古いブランドバッグによくあるベタつきや剥がれなどの劣化も、当店ならしっかりとお値段をお付けいたします。"
+  },
+  {
+    q: "傷や汚れが目立つ状態でも値段はつきますか？",
+    a: "状態によって価格の変動はございますが、現在の相場に基づいて最大限の価格をご提示します。「こんなにボロボロでも売れるの？」と驚かれるお客様も多いです。"
+  },
+  {
+    q: "他の買取店で断られた品物でも見てもらえますか？",
+    a: "大歓迎です！独自の販売ルートを持つ「まさ吉」なら買取可能な場合が多々ございます。諦めて捨ててしまう前に、ぜひ一度ご相談ください。"
+  },
+  {
+    q: "かなり昔に買った古いモデルでも大丈夫ですか？",
+    a: "もちろん大丈夫です。近年はヴィンテージブームの影響で、数十年前の古いモデルの方が買取価格が高騰しているケースも珍しくありません。1点ずつ丁寧にお調べいたします。"
+  }
+];
+---
+
+<section class="w-full max-w-[500px] mx-auto px-[10px] py-[30px] bg-white">
+  <h2 class="flex items-center mt-0 mb-[25px] px-[10px] text-[22px] font-black text-[#333333] max-[380px]:text-[19px]">
+    <span class="mr-[8px] text-[24px] text-[#275635] leading-none" aria-hidden="true">⬢</span>
+    よくあるご質問
+  </h2>
+
+  <div class="flex flex-col gap-[10px]">
+    {faqs.map(faq => (
+      <details class="group border border-[#dcdcdc] rounded-[4px] overflow-hidden">
+        <summary class="flex relative items-center py-[16px] pr-[45px] pl-[15px] bg-[#f0f4f2] cursor-pointer list-none [&::-webkit-details-marker]:hidden text-[14px] font-bold text-[#275635] leading-[1.5] group-open:bg-[#e4eee8] group-open:border-b group-open:border-[#dcdcdc] max-[380px]:text-[13px] max-[380px]:py-[14px] max-[380px]:pr-[40px] max-[380px]:pl-[12px] after:content-[''] after:absolute after:right-[15px] after:top-1/2 after:w-[8px] after:h-[8px] after:border-b-2 after:border-r-2 after:border-[#275635] after:-translate-y-1/2 after:rotate-45 after:transition-transform after:duration-300 group-open:after:-translate-y-[25%] group-open:after:rotate-[225deg]">
+          <span class="mr-[10px] font-[Arial,sans-serif] text-[18px] font-black shrink-0">Q.</span>
+          <span class="grow">{faq.q}</span>
+        </summary>
+        <div class="flex items-start py-[16px] px-[15px] bg-white text-[13px] text-[#444444] leading-[1.6] animate-fade-in max-[380px]:py-[14px] max-[380px]:px-[12px] max-[380px]:text-[12px]">
+          <span class="mr-[10px] font-[Arial,sans-serif] text-[18px] font-black text-[#555555] shrink-0">A.</span>
+          <span class="grow">{faq.a}</span>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* アコーディオンが開いた際のフワッと表示されるアニメーション */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

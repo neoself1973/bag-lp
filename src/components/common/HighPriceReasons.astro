@@ -1,0 +1,135 @@
+---
+// src/components/HighPriceReasons.astro
+// 「高額買取できる◯つの理由」画像＋ナンバー付きの横並びカードを縦に並べるセクション
+
+interface Reason {
+  /** 画像パス */
+  imageSrc: string;
+  /** 画像の代替テキスト */
+  imageAlt: string;
+  /** 見出し */
+  heading: string;
+  /** 本文（HTML可。<span class="hl">で部分強調） */
+  desc: string;
+  /** 任意：本文下に並べるタグ（販売ルートなど） */
+  tags?: string[];
+  /** 任意：ナンバー表示（省略時は並び順から自動採番：01, 02...） */
+  num?: string;
+}
+
+interface Props {
+  /** 見出し（配列で渡すと各要素が改行される） */
+  titleLines?: string[];
+  /** 見出し下の装飾ドットの数 */
+  dotCount?: number;
+  /** 理由カードの配列 */
+  reasons?: Reason[];
+}
+
+const base = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06";
+
+const {
+  titleLines = ["まさ吉が", "高額買取できる5つの理由"],
+  dotCount = 5,
+  reasons = [
+    {
+      imageSrc: `${base}/高価買取できる理由.png`,
+      imageAlt: "各種手数料がすべて無料",
+      heading: "各種手数料がすべて無料",
+      desc: `お客様のお受取り金額が減ってしまうような不明瞭な手数料は一切いただきません。まさ吉では<span class="hl">「査定料」「出張料」「買取手数料」「キャンセル料」がすべて無料</span>です。`,
+    },
+    {
+      imageSrc: `${base}/高価買取できる理由2.png`,
+      imageAlt: "買取後の販売経路が豊富",
+      heading: "買取後の販売経路が豊富",
+      desc: `買い取ったお品物をどこへ売れば一番高く売れるのか、国内外の相場を常に把握しています。<span class="hl">最適なルートで利益率を高くキープ</span>し、その分をお客様の買取価格へ還元しています。`,
+      tags: ["国内バイヤー", "海外バイヤー", "業者間取引", "自社販売"],
+    },
+    {
+      imageSrc: `${base}/高価買取できる理由3.png`,
+      imageAlt: "徹底した無駄なコスト削減",
+      heading: "徹底した無駄なコスト削減",
+      desc: `岡山県内に根差した地域密着の店舗展開を行うことで、莫大な広告宣伝費や無駄な運営コストを徹底的にカット。<span class="hl">浮いた経費の分を買取価格に上乗せ</span>することで高価買取を実現しています。`,
+    },
+    {
+      imageSrc: `${base}/まさ吉が高価買取できる理由７.png`,
+      imageAlt: "経験豊富なプロの鑑定技術",
+      heading: "経験豊富なプロの鑑定技術",
+      desc: `まさ吉には知識豊富な査定士が在籍しており、日々変動する相場を常にチェックしています。<span class="hl">ブランド価値やデザイン性も含めて丁寧に鑑定</span>し、確かな価値を見出します。`,
+    },
+    {
+      imageSrc: `${base}/高価買取できる理由5-e1780561913167.png`,
+      imageAlt: "安心の「まじめ」な接客",
+      heading: "安心の「まじめ」な接客",
+      desc: `「売るまで帰さない」といった強引な営業や無理な買取は一切いたしません。<span class="hl">誠実にご説明し、お客様に心からご納得いただいた上で</span>お買取りを行うのが、まさ吉の「まじめ」なポリシーです。`,
+    },
+  ],
+} = Astro.props;
+---
+
+<section
+  class="mx-auto box-border max-w-[500px] bg-[#f4f5f7] px-4 py-10 text-[#333333] [font-family:'Noto_Sans_JP',sans-serif]"
+>
+  <!-- 見出し -->
+  <div class="mb-[30px] text-center">
+    <h2 class="m-0 text-[19px] font-bold leading-snug tracking-[0.05em] text-[#333333]">
+      {
+        titleLines.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </h2>
+    <div class="mt-2.5 flex justify-center gap-1">
+      {
+        Array.from({ length: dotCount }).map(() => (
+          <span class="block h-[5px] w-[5px] rounded-full bg-[#275635]"></span>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- 理由カード -->
+  <div class="space-y-[15px]">
+    {
+      reasons.map((reason, i) => (
+        <div class="flex overflow-hidden rounded-md border border-[#e5e5e5] bg-white shadow-[0_3px_8px_rgba(0,0,0,0.03)]">
+          {/* 左：画像＋ナンバー */}
+          <div class="relative w-[36%]">
+            <span class="absolute left-0 top-0 bg-[#275635] px-2.5 py-1.5 text-[16px] font-black leading-none text-white [font-family:'Times_New_Roman',serif]">
+              {reason.num ?? String(i + 1).padStart(2, "0")}
+            </span>
+            <img src={reason.imageSrc} alt={reason.imageAlt} class="block h-full w-full object-cover" />
+          </div>
+
+          {/* 右：テキスト */}
+          <div class="flex w-[64%] flex-col justify-center px-3 py-4">
+            <h3 class="m-0 mb-2 text-[14px] font-bold leading-snug text-[#333333]">
+              {reason.heading}
+            </h3>
+            <p class="hpr-desc m-0 text-[11px] leading-relaxed text-[#444444]" set:html={reason.desc} />
+            {reason.tags && (
+              <div class="mt-2 flex flex-wrap gap-[5px]">
+                {reason.tags.map((tag) => (
+                  <span class="rounded-sm bg-[#f0f5f2] px-1.5 py-[3px] text-[9px] font-bold text-[#275635]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* set:htmlで注入した本文内の部分強調 */
+  .hpr-desc :global(.hl) {
+    color: #e6005c;
+    font-weight: 700;
+  }
+</style>

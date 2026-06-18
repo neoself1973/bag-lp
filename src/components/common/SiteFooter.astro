@@ -1,0 +1,42 @@
+---
+// src/components/SiteFooter.astro
+// ロゴ＋古物商許可・運営者情報＋コピーライトのサイトフッター
+
+interface Props {
+  /** ロゴ画像パス */
+  logoSrc?: string;
+  /** ロゴの代替テキスト */
+  logoAlt?: string;
+  /** ロゴのリンク先 */
+  logoHref?: string;
+  /** 法律・運営者情報（HTML可。<br>で改行できる） */
+  legalHtml?: string;
+  /** コピーライト表記 */
+  copyright?: string;
+}
+
+const {
+  logoSrc = "https://via.placeholder.com/400x120?text=Masakichi+Logo",
+  logoAlt = "まじめな買取屋 まさ吉",
+  logoHref = "#",
+  legalHtml = `まじめな買取屋 まさ吉は、古物営業法に基づく古物商の許可を得て運営しております。<br>【〇〇県公安委員会 古物商許可】第000000000000号<br><br>運営会社：株式会社〇〇〇〇<br>〒000-0000 岡山県〇〇市〇〇町0-0-0`,
+  copyright = "© 2026 まじめな買取屋 まさ吉 All Rights Reserved.",
+} = Astro.props;
+---
+
+<footer
+  class="mx-auto box-border w-full max-w-[500px] bg-[#f4f4f4] px-5 py-10 text-center [font-family:'Noto_Sans_JP',sans-serif]"
+>
+  <!-- ロゴ -->
+  <a href={logoHref} class="mx-auto mb-5 block max-w-[220px] max-[380px]:max-w-[180px]">
+    <img src={logoSrc} alt={logoAlt} class="h-auto w-full" />
+  </a>
+
+  <!-- 運営者・法律情報 -->
+  <div class="mb-[25px] text-[11px] leading-relaxed text-[#555555] max-[380px]:text-[10px]" set:html={legalHtml} />
+
+  <!-- コピーライト -->
+  <div class="mt-5 border-t border-[#e0e0e0] pt-[15px] text-[10px] text-[#888888]">
+    {copyright}
+  </div>
+</footer>

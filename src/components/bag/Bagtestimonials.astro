@@ -1,0 +1,125 @@
+---
+interface TestimonialItem {
+  icon: string;
+  attr: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  heading?: string;
+  items?: TestimonialItem[];
+}
+
+const {
+  heading = "お客様の声",
+  items = [
+    {
+      icon: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/メガネをかけた女性のアイコン素材.png",
+      attr: "岡山県在住 40代 女性",
+      title: "プレオープンで親身に\n対応してくれました。",
+      text: "プレオープンのチラシを見た時、捨てようか迷っていたヴィトンのバッグがあることを思い出し、さっそくまさ吉さんへ行きました。持ち手が切れそうなボロボロのバッグでしたが、スタッフの方がとても丁寧に対応してくれて安心しました。本オープンの時にも、今度はアクセサリーを持っていこうと思います。",
+    },
+    {
+      icon: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/サラリーマン.png",
+      attr: "倉敷市在住 50代 男性",
+      title: "他店で断られた古い時計も\n売れました！",
+      text: "プレオープン期間中という看板を見て、立ち寄ってみました。昔使っていたブランド時計でしたが、状態が悪く他では値段がつかなかったものです。まさ吉の査定員さんは誠実で、なぜこの価格になるのかしっかり説明してくれました。正式オープンが楽しみです。",
+    },
+    {
+      icon: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/女性の人物アイコン.png",
+      attr: "岡山市在住 30代 女性",
+      title: "初めての買取でも安心の\n「まじめな」接客",
+      text: "買取店を利用するのは初めてで緊張しましたが、プレオープン中ということで思い切って相談しました。名前の通り本当に「まじめ」な対応で、無理な営業なども一切なく、納得してバッグを手放すことができました。友人にもおすすめしたいお店です！",
+    },
+  ],
+} = Astro.props;
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto py-[30px] bg-[#f9f9f9]"
+  aria-labelledby="bag-testi-heading"
+>
+  <h2
+    id="bag-testi-heading"
+    class="flex items-center px-5 mt-0 mb-5 text-[22px] font-black text-[#333]"
+  >
+    <span class="text-[#275635] mr-2 text-[24px] leading-none" aria-hidden="true">⬢</span>
+    {heading}
+  </h2>
+
+  <div class="relative flex items-center w-full">
+
+    <!-- 左矢印 -->
+    <button
+      id="testi-prev"
+      aria-label="前の口コミ"
+      class="absolute left-[5px] z-10 w-10 h-10 bg-[#275635] text-white rounded-full flex items-center justify-center text-[22px] font-black shadow-[0_4px_8px_rgba(0,0,0,0.2)] pb-0.5 cursor-pointer border-0"
+    >
+      ←
+    </button>
+
+    <!-- スライダー -->
+    <ul
+      id="masakichi-slider"
+      class="flex overflow-x-auto gap-[15px] px-5 pt-2.5 pb-5 list-none m-0 scroll-smooth [scroll-snap-type:x_mandatory] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {items.map((item) => (
+        <li class="flex-[0_0_85%] max-w-[320px] bg-white border border-[#eaeaea] rounded-lg px-5 py-[25px] [scroll-snap-align:center] shadow-[0_4px_10px_rgba(0,0,0,0.04)]">
+
+          <!-- ユーザー情報 -->
+          <div class="flex items-start mb-[15px]">
+            <div class="w-[60px] h-[60px] rounded-full bg-[#f0f4f2] mr-[15px] shrink-0 overflow-hidden">
+              <img
+                src={item.icon}
+                alt="お客様アイコン"
+                width="60"
+                height="60"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-[11px] text-[#666] mb-1">{item.attr}</span>
+              <span class="text-[15px] font-bold text-[#275635] leading-snug whitespace-pre-line">{item.title}</span>
+            </div>
+          </div>
+
+          <!-- 口コミ本文 -->
+          <p class="m-0 text-[13px] text-[#444] leading-relaxed">{item.text}</p>
+
+        </li>
+      ))}
+    </ul>
+
+    <!-- 右矢印 -->
+    <button
+      id="testi-next"
+      aria-label="次の口コミ"
+      class="absolute right-[5px] z-10 w-10 h-10 bg-[#275635] text-white rounded-full flex items-center justify-center text-[22px] font-black shadow-[0_4px_8px_rgba(0,0,0,0.2)] pb-0.5 cursor-pointer border-0"
+    >
+      →
+    </button>
+
+  </div>
+</section>
+
+<style>
+  @media (max-width: 380px) {
+    #bag-testi-heading { font-size: 19px; }
+  }
+</style>
+
+<script>
+  const slider = document.getElementById('masakichi-slider');
+  const prev   = document.getElementById('testi-prev');
+  const next   = document.getElementById('testi-next');
+
+  prev?.addEventListener('click', () => {
+    slider?.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+  next?.addEventListener('click', () => {
+    slider?.scrollBy({ left: 300, behavior: 'smooth' });
+  });
+</script>

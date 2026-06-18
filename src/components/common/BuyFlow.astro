@@ -1,0 +1,150 @@
+---
+// src/components/common/BuyFlow.astro
+// 見出し＋タブ切替で「店舗買取／出張買取の流れ」を出し分けるセクション。
+// 旧版はCSSのみ（ラジオの兄弟セレクタ）で切替していたが描画環境で開かない問題があったため、
+// 自己完結のvanilla JSに変更。JSなしでも先頭タブ（店舗買取）の中身は表示される下位互換つき。
+
+interface Step {
+  /** アイコン画像パス */
+  iconSrc: string;
+  /** アイコンの代替テキスト */
+  iconAlt: string;
+  /** バッジ文言（例：STEP 1） */
+  badge: string;
+  /** 見出し */
+  head: string;
+  /** 説明文 */
+  desc: string;
+}
+
+interface Tab {
+  /** タブのラベル */
+  label: string;
+  /** このタブのステップ一覧 */
+  steps: Step[];
+}
+
+interface Props {
+  /** 見出し */
+  title?: string;
+  /** 見出し下の装飾ドットの数 */
+  dotCount?: number;
+  /** タブ（2つ想定だが3つ以上も可） */
+  tabs?: Tab[];
+}
+
+const base = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06";
+
+const {
+  title = "選べる2つの買取方法",
+  dotCount = 5,
+  tabs = [
+    {
+      label: "店舗買取の流れ",
+      steps: [
+        { iconSrc: `${base}/1-1.png`, iconAlt: "来店アイコン", badge: "STEP 1", head: "ご来店・受付", desc: "最寄りの店舗にお越しください。ご本人様確認書類も忘れずに。ご予約不要・年中無休でお待ちしてます。" },
+        { iconSrc: `${base}/2-1.png`, iconAlt: "査定アイコン", badge: "STEP 2", head: "査定", desc: "プロのスタッフがまじめに査定いたします。心配事がありましたらなんでもご相談ください。" },
+        { iconSrc: `${base}/3-1.png`, iconAlt: "現金支払いアイコン", badge: "STEP 3", head: "ご成約・現金即払い", desc: "査定価格にご納得いただけましたら、お売りください。その場で現金をお支払いいたします。" },
+      ],
+    },
+    {
+      label: "出張買取の流れ",
+      steps: [
+        { iconSrc: `${base}/4-removebg-preview.png`, iconAlt: "電話アイコン", badge: "STEP 1", head: "ご予約・ご相談", desc: "お電話またはLINEにてお問い合わせください。ご希望の訪問日時を調整させていただきます。" },
+        { iconSrc: `${base}/2-1.png`, iconAlt: "訪問査定アイコン", badge: "STEP 2", head: "ご自宅へ訪問・査定", desc: "お約束の日時に査定員がご自宅へお伺いし、玄関先などでスピーディーかつ丁寧に査定いたします。" },
+        { iconSrc: `${base}/3-1.png`, iconAlt: "現金支払いアイコン", badge: "STEP 3", head: "ご成約・その場で現金払い", desc: "査定金額にご納得いただければ取引成立です。その場で即日現金にてお支払いいたします。" },
+      ],
+    },
+  ],
+} = Astro.props;
+
+// インスタンスごとに一意なID接頭辞（複数設置でのID衝突・aria-controls重複を回避）
+const uid = `buyflow-${Math.random().toString(36).slice(2, 8)}`;
+const panelId = (i: number) => `${uid}-panel-${i}`;
+const tabBtnId = (i: number) => `${uid}-tab-${i}`;
+---
+
+<section class="mx-auto box-border w-full max-w-[500px] bg-white [font-family:'Noto_Sans_JP',sans-serif]" data-buyflow>
+  <!-- 見出し -->
+  <div class="px-2.5 pt-[30px] text-center">
+    <h2 class="m-0 mb-2.5 text-[1.4rem] font-black leading-snug text-[#333333]">{title}</h2>
+    <div class="mb-5 flex justify-center gap-1.5">
+      {Array.from({ length: dotCount }).map(() => (
+        <span class="h-[5px] w-[5px] rounded-full bg-[#275635]"></span>
+      ))}
+    </div>
+  </div>
+
+  <!-- タブボタン -->
+  <div class="flex w-full" role="tablist" aria-label={title}>
+    {tabs.map((tab, i) => (
+      <button
+        type="button"
+        id={tabBtnId(i)}
+        role="tab"
+        aria-selected={i === 0 ? "true" : "false"}
+        aria-controls={panelId(i)}
+        data-flow-tab
+        class="flex-1 cursor-pointer border border-[#dcdcdc] bg-[#f4f4f4] py-3 text-center text-[15px] font-bold text-[#666666] transition-all duration-200 [&:not(:first-child)]:border-l-0 aria-selected:bg-white aria-selected:text-[#275635] aria-selected:border-b-2 aria-selected:border-b-[#275635] max-[380px]:py-2.5 max-[380px]:text-[13px]"
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- タブコンテンツ（全件HTML出力。先頭以外はhiddenで初期非表示） -->
+  {tabs.map((tab, i) => (
+    <div
+      id={panelId(i)}
+      role="tabpanel"
+      aria-labelledby={tabBtnId(i)}
+      data-flow-panel
+      hidden={i !== 0}
+      class="border border-t-0 border-[#dcdcdc] px-2.5 py-5"
+    >
+      <div class="space-y-6">
+        {tab.steps.map((step) => (
+          <div class="flex">
+            <div class="mr-[15px] flex h-[70px] w-[70px] min-w-[70px] items-center justify-center overflow-hidden rounded-full bg-[#f0f4f2] max-[380px]:mr-2.5 max-[380px]:h-[60px] max-[380px]:w-[60px] max-[380px]:min-w-[60px]">
+              <img src={step.iconSrc} alt={step.iconAlt} loading="lazy" decoding="async" class="h-auto w-[60%]" />
+            </div>
+            <div class="flex flex-grow flex-col justify-start">
+              <div class="mb-1.5 flex items-center text-[15px] font-bold leading-tight text-[#333333] max-[380px]:text-[14px]">
+                <span class="mr-2 rounded-sm bg-[#275635] px-2 py-0.5 text-[11px] font-black text-white">
+                  {step.badge}
+                </span>
+                {step.head}
+              </div>
+              <p class="m-0 text-[12px] leading-normal text-[#555555] max-[380px]:text-[11px]">
+                {step.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
+
+<script>
+  // 自己完結のタブ切替。ページ内の全BuyFlowインスタンスを個別に初期化（固定ID非依存・複数設置OK）
+  function initBuyFlow(root: HTMLElement) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-flow-tab]"));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-flow-panel]"));
+    if (!tabs.length || !panels.length) return;
+
+    const activate = (index: number) => {
+      tabs.forEach((t, i) => t.setAttribute("aria-selected", String(i === index)));
+      panels.forEach((p, i) => (p.hidden = i !== index));
+    };
+
+    tabs.forEach((t, i) => t.addEventListener("click", () => activate(i)));
+
+    // 初期表示：店舗買取（先頭タブ）を開く
+    activate(0);
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-buyflow]")
+    .forEach((el) => initBuyFlow(el));
+</script>

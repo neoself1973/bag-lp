@@ -1,0 +1,164 @@
+---
+interface Props {
+  bgImage?: string;
+}
+
+const {
+  bgImage = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/ファーストビュー背景てすと-1-1.png",
+} = Astro.props;
+---
+
+<section class="bag-hero" aria-label="バッグ買取 メインビジュアル" style={`--bag-hero-bg: url("${bgImage}")`}>
+  <div class="bag-hero-inner">
+    <p class="bag-hero-lead-top">シミ・破損など</p>
+
+    <p class="bag-hero-lead">
+      <span class="is-green is-lg">他社NG品</span><span>も</span><span class="is-green is-xl">高価買取</span><span>可能。</span>
+    </p>
+
+    <div class="bag-hero-divider">
+      <span class="bag-hero-divider-line" aria-hidden="true"></span>
+      <span class="bag-hero-divider-text">出張料 キャンセル料 査定料 <strong>無料</strong></span>
+      <span class="bag-hero-divider-line" aria-hidden="true"></span>
+    </div>
+
+    <h1 class="bag-hero-title">
+      <span class="bag-hero-sub">バッグを売るなら</span>
+      <span class="bag-hero-brand">
+        <span class="bag-hero-brand-catch">まじめな買取屋</span>
+        <span class="bag-hero-brand-main">まさ吉</span>
+      </span>
+    </h1>
+
+    <p class="bag-hero-message">
+      手放しても、残る想いがある。<br />
+      あなたの「想い」、高く買い取ります。
+    </p>
+  </div>
+</section>
+
+<style>
+  .bag-hero {
+    /* ヘッダー(高さ64px=h-16)に隠れないよう上に余白を確保 */
+    padding-top: calc(64px + clamp(20px, 5vw, 44px));
+    padding-bottom: clamp(36px, 7vw, 72px);
+    padding-left: 16px;
+    padding-right: 16px;
+
+    /* セクション全体を覆う1枚背景 */
+    background-color: #f2f2ef; /* 画像読込前のフォールバック */
+    background-image: var(--bag-hero-bg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    font-family: "Noto Serif JP", "游明朝", "Yu Mincho", serif;
+    text-align: center;
+
+    /* セクション自体を中央500pxに制限（背景ごと500pxで止める） */
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .bag-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* シミ・破損など */
+  .bag-hero-lead-top {
+    margin: 0;
+    font-size: clamp(12px, 3.4vw, 15px);
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* 他社NG品も高価買取可能。 */
+  .bag-hero-lead {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    font-size: clamp(16px, 4.6vw, 19px);
+  }
+  .bag-hero-lead .is-green { color: #275635; }
+  .bag-hero-lead .is-lg { font-size: 1.1em; }
+  .bag-hero-lead .is-xl { font-size: 1.22em; }
+
+  /* 区切り線 */
+  .bag-hero-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    gap: 8px;
+    margin: 6px 0;
+  }
+  .bag-hero-divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #c8a84b;
+  }
+  .bag-hero-divider-text {
+    font-size: clamp(10px, 2.8vw, 12px);
+    color: #333;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+  .bag-hero-divider-text strong { font-weight: 700; }
+
+  /* バッグを売るなら／まじめな買取屋／まさ吉 */
+  .bag-hero-title {
+    margin: 4px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-weight: 700;
+  }
+  .bag-hero-sub {
+    font-size: clamp(18px, 5.6vw, 24px);
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+  .bag-hero-brand {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+  }
+  .bag-hero-brand-catch {
+    display: block;
+    font-size: clamp(17px, 5.2vw, 23px);
+    color: #275635;
+    font-weight: 900;
+    text-align-last: justify;
+    line-height: 1;
+    margin-bottom: -2px;
+  }
+  .bag-hero-brand-main {
+    display: block;
+    font-size: clamp(40px, 13vw, 56px);
+    color: #275635;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+
+  /* 画像下の黒文字 */
+  .bag-hero-message {
+    margin: clamp(140px, 40vw, 200px) 0 0; /* 背景のバッグ画像と重ならないよう下に送る */
+    font-size: clamp(14px, 4vw, 18px);
+    color: #333;
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    text-wrap: balance;
+  }
+</style>

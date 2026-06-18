@@ -1,0 +1,87 @@
+---
+interface Props {
+  periodPrefix?: string;
+  periodHighlight?: string;
+  leftLine1?: string;
+  leftLine2?: string;
+  number?: string;
+  numberPrefix?: string;
+  numberUnit?: string;
+  campaignText?: string;
+  bgImage?: string;
+}
+
+const {
+  periodPrefix    = "【期間限定】",
+  periodHighlight = "９月30日まで",
+  leftLine1       = "買取",
+  leftLine2       = "総額",
+  number          = "30",
+  numberPrefix    = "最大",
+  numberUnit      = "%UP",
+  campaignText    = "開店記念キャンペーン実施中！",
+  bgImage         = "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/%E3%81%82%E3%81%A3%E3%81%B1%E3%82%8C%E3%81%AA%E8%83%8C%E6%99%AF-e1780441276545.png",
+} = Astro.props;
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto px-2.5 pt-6 pb-7 text-center relative bg-cover bg-center bg-no-repeat"
+  style={`background-image: url('${bgImage}');`}
+  aria-label="開店記念キャンペーン"
+>
+  <!-- 期間限定ラベル -->
+  <p class="inline-block mb-3.5 bg-[#fff700] border-2 border-[#ff6600] rounded-[6px] px-[18px] py-1 text-[clamp(16px,4.6vw,19px)] font-bold tracking-[0.05em] text-[#222]">
+    {periodPrefix}<span class="text-[#f00] font-black">{periodHighlight}</span>
+  </p>
+
+  <!-- メインテキストエリア -->
+  <div class="flex items-center justify-center leading-none">
+    <!-- 買取総額 -->
+    <div class="flex flex-col items-end justify-center">
+      <span class="block text-[clamp(26px,8.5vw,34px)] font-black text-white tracking-[0.05em] leading-[1.1]"
+        style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
+        {leftLine1}
+      </span>
+      <span class="block text-[clamp(26px,8.5vw,34px)] font-black text-white tracking-[0.05em] leading-[1.1]"
+        style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
+        {leftLine2}
+      </span>
+    </div>
+
+    <!-- 30（袋文字） -->
+    <div
+      class="text-[clamp(84px,28vw,120px)] font-black text-[#fff700] leading-none mx-1"
+      style="-webkit-text-stroke: 4px #ff6600; text-shadow: 4px 4px 0 #ff6600;"
+      aria-hidden="true"
+    >
+      {number}
+    </div>
+
+    <!-- 最大・%UP -->
+    <div class="flex flex-col items-start justify-center">
+      <span class="text-[clamp(13px,4vw,16px)] font-bold text-white bg-[#ff0066] rounded px-1.5 py-px mb-0.5 tracking-[0.05em]">
+        {numberPrefix}
+      </span>
+      <span
+        class="text-[clamp(36px,12vw,48px)] font-black text-[#fff700] leading-none"
+        style="-webkit-text-stroke: 3px #ff6600; text-shadow: 3px 3px 0 #ff6600;"
+        aria-hidden="true"
+      >
+        {numberUnit}
+      </span>
+    </div>
+
+    <!-- スクリーンリーダー用 -->
+    <span class="absolute w-px h-px p-0 -m-px overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap border-0">
+      {leftLine1}{leftLine2}{numberPrefix}{number}{numberUnit}
+    </span>
+  </div>
+
+  <!-- キャンペーン実施中 -->
+  <p
+    class="mt-3 text-[clamp(15px,5vw,20px)] font-black text-white tracking-[0.1em]"
+    style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);"
+  >
+    {campaignText}
+  </p>
+</section>

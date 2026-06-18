@@ -1,0 +1,37 @@
+---
+// BagCrossSell.astro
+
+interface Props {
+  bgImage?: string;
+}
+
+const {
+  bgImage = encodeURI("http://xs361374.xsrv.jp/wp-content/uploads/2026/06/財布とアパレル.png"),
+} = Astro.props;
+---
+
+<section class="w-full max-w-[500px] mx-auto px-2.5 py-5">
+
+  <div class="bg-white border-[3px] border-[#275635] rounded-lg px-4 pt-5 pb-4 text-center shadow-[0_4px_10px_rgba(0,0,0,0.08)]">
+
+    <h2 class="text-[22px] font-black text-[#275635] leading-snug tracking-wide mb-2.5">
+      財布・アパレルも高価買取！
+    </h2>
+
+    <p class="text-base font-bold text-[#333] leading-snug mb-4">
+      まとめて査定で買い取り額<span class="text-[#e6005c] text-[26px] font-black ml-0.5">UP</span>
+    </p>
+
+    <img
+      src={bgImage}
+      alt="財布・アパレルも高価買取"
+      width="600"
+      height="350"
+      loading="lazy"
+      decoding="async"
+      class="w-full h-auto block rounded"
+    />
+
+  </div>
+
+</section>

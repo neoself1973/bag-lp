@@ -1,0 +1,66 @@
+---
+// src/components/CtaBlock.astro
+// 全LP共通：お問い合わせ・CV（コンバージョン）エリア
+---
+
+<div class="w-full max-w-[500px] mx-auto py-6 px-[15px] bg-[#f4f6f9] font-sans text-center box-border relative overflow-hidden">
+  
+  <!-- 上部の吹き出しラベル -->
+  <div class="inline-block bg-[#1A3B22] text-white text-xs font-bold py-1.5 px-5 rounded-[4px] relative mb-4 tracking-[0.05em] after:content-[''] after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:border-[6px] after:border-transparent after:border-t-[#1A3B22]">
+    お電話でもLINEでも、365日<span class="text-[#fff700]">ご予約受付中！</span>
+  </div>
+
+  <!-- タイトルエリア -->
+  <div class="relative mb-3">
+    <div class="text-[14px] text-[#1a1a60] font-black tracking-[0.2em] leading-none mb-1">
+      ＼ ／
+    </div>
+    <h2 class="text-[24px] min-[380px]:text-[28px] font-black text-[#1A3B22] leading-[1.2] m-0">
+      お気軽に<span class="text-[#e6005c] border-b-[4px] border-[#e6005c] pb-0.5 mx-0.5">無料</span>買取査定
+    </h2>
+  </div>
+
+  <!-- 説明テキスト -->
+  <div class="text-[11px] text-[#555555] leading-[1.6] mb-6">
+    他社NG品でもOK！強引な交渉はいたしませんのでお気軽にご連絡ください。<br>
+    <small class="text-[9px]">※一部、実際にみないととお伝えできない商品もございます。</small>
+  </div>
+
+  <!-- ボタンのラッパー -->
+  <div class="flex flex-col gap-4 items-center">
+    
+    <!-- ＝＝＝＝＝ 電話ボタンエリア ＝＝＝＝＝ -->
+    <div class="w-full max-w-[400px] flex flex-col items-center">
+      <!-- ボタントゥールチップ -->
+      <div class="bg-[#1A3B22] text-white text-[13px] font-black py-1.5 px-5 rounded-md relative -mb-[14px] z-10 after:content-[''] after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:border-[6px] after:border-transparent after:border-t-[#1A3B22]">
+        <span class="text-[#fff700]">早くて1分！</span>最速で金額をお伝えいたします
+      </div>
+
+      <!-- 電話ボタン本体 -->
+      <a href="tel:0120000000" class="block w-full bg-[#fff700] border-[3px] border-[#ffcc00] rounded-full no-underline pt-3 pb-2.5 px-2 shadow-[0_6px_0_#e6b800] relative z-0 transition-all duration-200 active:translate-y-[6px] active:shadow-none select-none">
+        <div class="text-[20px] min-[380px]:text-[22px] font-black text-[#e6005c] flex items-center justify-center gap-1.5 leading-none">
+          <!-- SVG電話アイコン（画像と全く同じ紺色の受話器） -->
+          <svg class="w-6 h-6 fill-[#1a1a60] -scale-x-100" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.03 21c.76 0 .99-.66.99-1.2v-3.42c0-.55-.45-1-1.01-1z"/>
+          </svg>
+          まずは電話で無料査定
+        </div>
+        <span class="block text-[11px] font-bold text-[#333333] mt-1.5">
+          【総合受付】 24時間・年中無休(年末年始除く)
+        </span>
+      </a>
+    </div>
+
+    <!-- ＝＝＝＝＝ LINEボタンエリア ＝＝＝＝＝ -->
+    <a href="https://lin.ee/yourlink" class="flex items-center justify-center gap-2 w-full max-w-[400px] bg-[#06C755] rounded-full no-underline py-4 px-2 shadow-[0_6px_0_#049f43] transition-all duration-200 active:translate-y-[6px] active:shadow-none select-none mt-1">
+      <!-- SVG LINE風アイコン（画像と全く同じ白い吹き出し） -->
+      <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C6.48 3 2 6.82 2 11.53c0 2.53 1.25 4.81 3.25 6.34.42.32.55.88.35 1.37-.15.37-.41 1.05-.6 1.58-.1.28.18.53.44.41 1.63-.73 3.27-1.55 4.54-2.22.25-.13.54-.15.8-.06.77.26 1.6.4 2.47.4 5.52 0 10-3.82 10-8.53S17.52 3 12 3zm-3.5 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
+      <span class="text-[20px] min-[380px]:text-[22px] font-black text-white leading-none">
+        LINEで無料相談する
+      </span>
+    </a>
+
+  </div>
+</div>

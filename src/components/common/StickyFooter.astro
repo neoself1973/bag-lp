@@ -1,0 +1,117 @@
+---
+// src/components/StickyFooter.astro
+// 全ページで使い回せる固定フッターコンポーネント
+---
+
+<div 
+  id="msf-footer-banner" 
+  class="fixed bottom-0 left-0 right-0 z-[99998] translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] pointer-events-auto font-sans"
+>
+  <div class="max-w-[500px] mx-auto relative overflow-visible">
+    <a href="tel:0000-000-000" class="block no-underline" aria-label="無料相談のお電話はこちら">
+      
+      <!-- 上部キャッチバー（2行） -->
+      <div class="bg-[#1A3B22] py-1 pl-2.5 pr-[100px] text-left">
+        <p class="m-0 text-white text-[10px] leading-[1.55] tracking-[0.01em] line-clamp-2">
+          「まだ売るか決まってないけど、査定額だけ知りたい…」<br>というお客様も大歓迎！査定は最速1分！
+        </p>
+      </div>
+
+      <!-- メインバナー（1行） -->
+      <div class="bg-[#FFD700] py-1.5 pl-2.5 pr-[100px] flex items-center gap-1.5 min-h-[40px] relative">
+        
+        <!-- 電話アイコン -->
+        <div class="shrink-0 w-7 h-7 bg-[#1A3B22] rounded-full flex items-center justify-center">
+          <svg class="w-4 h-4 fill-[#FFD700]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+          </svg>
+        </div>
+
+        <!-- テキスト（1行） -->
+        <div class="flex-1 whitespace-nowrap overflow-hidden leading-none flex items-baseline gap-[2px]">
+          <span class="text-[11px] font-bold text-[#1A3B22] shrink-0">お電話にて</span>
+          <span class="text-[22px] font-black text-[#CC0000] tracking-[-0.02em] shrink-0">無料相談</span>
+          <span class="text-[13px] font-bold text-[#1A3B22] shrink-0">受付中!!</span>
+        </div>
+
+        <!-- 人物画像エリア（下端に固定・上に突き出す） -->
+        <div class="absolute right-0 bottom-0 w-[100px] pointer-events-none flex items-end">
+          <img
+            src="http://xs361374.xsrv.jp/wp-content/uploads/2026/06/womope.png"
+            alt="女性オペレーター"
+            class="w-full block"
+            style="max-height: 140px; object-fit: contain; object-position: bottom; vertical-align: bottom;"
+          />
+        </div>
+
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var banner = document.getElementById('msf-footer-banner');
+  if (!banner) return;
+
+  var isHidden = false;
+
+  var touchStartY = 0;
+  var touchStartX = 0;
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    var diffY = touchStartY - e.changedTouches[0].clientY;
+    var diffX = Math.abs(touchStartX - e.changedTouches[0].clientX);
+    if (diffY > 40 && diffY > diffX) {
+      hideBanner();
+    }
+  }, { passive: true });
+
+  var lastScrollY = window.scrollY;
+  var ticking = false;
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        var current = window.scrollY;
+        var maxScroll = document.body.scrollHeight - window.innerHeight;
+
+        if (current < lastScrollY - 30) {
+          showBanner();
+        }
+
+        if (current >= maxScroll - 100) {
+          showBanner();
+        }
+
+        lastScrollY = current <= 0 ? 0 : current;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  function hideBanner() {
+    if (!isHidden) {
+      isHidden = true;
+      banner.classList.remove('translate-y-0');
+      banner.classList.add('translate-y-[110%]');
+    }
+  }
+
+  function showBanner() {
+    if (isHidden) {
+      isHidden = false;
+      banner.classList.remove('translate-y-[110%]');
+      banner.classList.add('translate-y-0');
+    }
+  }
+})();
+</script>

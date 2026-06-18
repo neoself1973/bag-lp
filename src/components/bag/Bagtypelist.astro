@@ -1,0 +1,175 @@
+---
+interface PriceRow {
+  label: string;
+  price: number;
+}
+
+interface BagTypeItem {
+  img: string;
+  alt: string;
+  category: string;
+  name: string;
+  prices: PriceRow[];
+}
+
+interface Props {
+  heading?: string;
+  items?: BagTypeItem[];
+}
+
+const {
+  heading = "バッグの種類・参考価格リスト",
+  items = [
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/1ポーチ.png",
+      alt: "ヴィトン・ポーチ",
+      category: "ポーチ",
+      name: "ルイ・ヴィトン\nモノグラムヌメ革 ショルダーストラップバック",
+      prices: [
+        { label: "未使用品", price: 54000 },
+        { label: "中古品",   price: 42000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/シャネル・ビジネスバッグ.png",
+      alt: "シャネル・ビジネスバッグ",
+      category: "ビジネスバッグ",
+      name: "シャネル\nGGキャンバス 2WAY ハンドバッグ トートバッグ",
+      prices: [
+        { label: "未使用品", price: 80000 },
+        { label: "中古品",   price: 30000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/ボストンバッグ・ヴィトン.png",
+      alt: "ルイ・ヴィトン ボストンバッグ",
+      category: "ボストンバッグ",
+      name: "ルイ・ヴィトン\nボストンバッグ キーポル バンドリエール50 モノグラム",
+      prices: [
+        { label: "未使用品", price: 120000 },
+        { label: "中古品",   price:  59000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/4ショルダーバッグ-シャネル.png",
+      alt: "シャネル ショルダーバッグ",
+      category: "ハンドバッグ",
+      name: "シャネル\nマトラッセ ラムスキン レッド ゴールド金具",
+      prices: [
+        { label: "未使用品", price: 500000 },
+        { label: "中古品",   price: 200000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/5クラッチバッグ-イヴ・サンローラン.png",
+      alt: "イヴ・サンローラン クラッチバッグ",
+      category: "クラッチバッグ",
+      name: "イヴ・サンローラン\nヴィンテージ・クラッチバッグ",
+      prices: [
+        { label: "未使用品", price: 24000 },
+        { label: "中古品",   price: 10000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/ed747b3a-1588-4bda-8db5-2de4b9d44bf3.jpg",
+      alt: "BOTTEGA VENETA ドキュメントケース",
+      category: "セカンドバッグ",
+      name: "BOTTEGA VENETA\nドキュメントケース",
+      prices: [
+        { label: "未使用品", price: 40000 },
+        { label: "中古品",   price: 12000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/リュック.png",
+      alt: "Dior Daily バックパック",
+      category: "リュック",
+      name: "Dior Daily\nディオール グラビティ アウトライン レザー & グレインドカーフスキン",
+      prices: [
+        { label: "未使用品", price: 350000 },
+        { label: "中古品",   price: 250000 },
+      ],
+    },
+    {
+      img: "http://xs361374.xsrv.jp/wp-content/uploads/2026/06/8ハンドバッグ.png",
+      alt: "エルメス ミニケリー",
+      category: "ハンドバッグ",
+      name: "エルメス\nミニケリー エプソン ゴールド",
+      prices: [
+        { label: "未使用品", price: 4000000 },
+        { label: "中古品",   price: 2800000 },
+      ],
+    },
+  ],
+} = Astro.props;
+
+const yen = (n: number) => n.toLocaleString("ja-JP");
+---
+
+<section
+  class="w-full max-w-[500px] mx-auto px-[15px] py-[30px]"
+  aria-labelledby="bag-typelist-heading"
+>
+  <h2
+    id="bag-typelist-heading"
+    class="mt-0 mb-4 text-center text-[22px] font-black text-[#333] tracking-[1px]"
+  >
+    {heading}
+    <span class="block mt-0.5 text-[0.5em] tracking-[0.3em] text-[#999]" aria-hidden="true">
+      …….
+    </span>
+  </h2>
+
+  <ul class="list-none p-0 m-0 border-t border-l border-r border-[#e0e0e0]">
+    {items.map((item) => (
+      <li class="flex w-full border-b border-[#e0e0e0] bg-white">
+
+        {/* 画像エリア（左） */}
+        <div class="w-[90px] min-w-[90px] p-2.5 flex items-center justify-center">
+          <div class="w-full aspect-square bg-[#f4f4f4] flex items-center justify-center rounded overflow-hidden">
+            <img
+              src={item.img}
+              alt={item.alt}
+              loading="lazy"
+              decoding="async"
+              class="max-w-[95%] max-h-[95%] object-contain"
+            />
+          </div>
+        </div>
+
+        {/* 商品情報エリア（中央） */}
+        <div class="flex-grow py-3 pr-2.5 flex flex-col justify-center">
+          <span class="inline-block w-fit text-[10px] text-[#555] bg-[#f0f0f0] px-1.5 py-0.5 rounded-sm mb-1.5">
+            {item.category}
+          </span>
+          <p class="m-0 text-[13px] font-bold text-[#333] leading-snug whitespace-pre-line">
+            {item.name}
+          </p>
+        </div>
+
+        {/* 価格エリア（右） */}
+        <div class="w-[120px] min-w-[120px] border-l border-[#f0f0f0] px-2.5 py-3 flex flex-col justify-center gap-2.5 bg-[#fafcfb]">
+          {item.prices.map((row) => (
+            <div class="flex flex-col">
+              <span class="text-[10px] text-[#666] font-bold mb-0.5">{row.label}</span>
+              <p class="m-0 text-[16px] font-black text-[#1a1a60] leading-none">
+                {yen(row.price)}<span class="text-[10px] font-bold">円</span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  @media (max-width: 380px) {
+    #bag-typelist-heading { font-size: 19px; }
+    /* 画像エリア縮小 */
+    .bag-typelist-img  { width: 75px; min-width: 75px; padding: 8px; }
+    /* 価格エリア縮小 */
+    .bag-typelist-price { width: 100px; min-width: 100px; padding: 10px 6px; }
+  }
+</style>

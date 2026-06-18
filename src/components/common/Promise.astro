@@ -1,0 +1,61 @@
+---
+// src/components/Promise.astro
+// 「安心・安全 ◯つのお約束」数字バッジ＋テキストのリストセクション
+
+interface Props {
+  /** タイトル前半（赤文字） */
+  titleRed?: string;
+  /** タイトル後半（黒文字） */
+  titleBlack?: string;
+  /** 約束リスト（HTML可。<br>で改行できる） */
+  items?: string[];
+}
+
+const {
+  titleRed = "安心・安全",
+  titleBlack = "5つのお約束",
+  items = [
+    "ご予約を頂いていないお客様への、<br>突然の営業電話や訪問営業は行いません。",
+    "強引な交渉・無理な買取は致しません。",
+    "出張費・査定費・キャンセル料は<br>「全て0円（完全無料）」にて承ります。",
+    "お預かりした個人情報は、漏洩や紛失が<br>ないよう厳重に管理いたします。",
+    "査定内容や金額を、丁寧にご納得<br>いただけるまで説明することを<br>お約束いたします。",
+  ],
+} = Astro.props;
+---
+
+<section
+  class="mx-auto box-border w-full max-w-[500px] bg-[#f6ebeb] px-5 py-[30px] max-[380px]:px-[15px] max-[380px]:py-[25px] [font-family:'Noto_Sans_JP',sans-serif]"
+>
+  <!-- タイトル -->
+  <div class="mb-[25px] flex items-center justify-center">
+    <div class="mr-2 flex h-6 w-6 items-center">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#db4b4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+    </div>
+    <div class="flex items-center gap-1.5 text-[20px] font-black leading-tight max-[380px]:text-[18px]">
+      <span class="text-[#db4b4b]">{titleRed}</span>
+      <span class="text-[#333333]">{titleBlack}</span>
+    </div>
+  </div>
+
+  <!-- リスト -->
+  <div class="flex flex-col gap-5">
+    {
+      items.map((item, i) => (
+        <div class="flex items-center">
+          <div
+            class="mr-[15px] flex h-12 w-12 min-w-[48px] items-center justify-center rounded-full bg-[#de4746] text-[22px] font-black text-white shadow-[2px_3px_6px_rgba(0,0,0,0.15)] [font-family:Arial,sans-serif] [text-shadow:1.5px_1.5px_0px_#ecc66f] max-[380px]:mr-3 max-[380px]:h-[42px] max-[380px]:w-[42px] max-[380px]:min-w-[42px] max-[380px]:text-[19px]"
+          >
+            {String(i + 1).padStart(2, "0")}
+          </div>
+          <p
+            class="m-0 text-[14px] font-medium leading-normal text-[#333333] max-[380px]:text-[13px]"
+            set:html={item}
+          />
+        </div>
+      ))
+    }
+  </div>
+</section>
